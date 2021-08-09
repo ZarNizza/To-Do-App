@@ -1,8 +1,36 @@
 <html>
   <head>
+    <link type="text/css" href="index.css" rel="stylesheet" />
+
     <title>Hello!</title>
   </head>
   <body>
-    Hello, FANCY - - - WORLD!
+    <div class="flcc w100 h100">
+      <div class="vcenter">
+        <p>
+          New ToDo
+          <input type="text" />
+          <button>Add (+)</button>
+        </p>
+        <p>
+            ToDo Things
+        </p>
+        <div id="toDoList">
+
+        </div>
+      </div>
+    </div>
+    <script>
+        const toDos=[];
+              const button=document.querySelector("button");
+              console.log(button);
+              button.addEventListener("click", event => {
+                  const newToDo = document.querySelector("input").value;
+                  toDos.push(newToDo);
+                  const toDoList = document.getElementById("toDoList");
+                  toDoList.innerHTML = toDos.map(toDo=>`<p>${toDo}</p>`).join("");
+
+              })
+    </script>
   </body>
 </html>

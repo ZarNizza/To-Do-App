@@ -1,5 +1,6 @@
 <html>
   <head>
+    <meta charset="UTF-8" />
     <link type="text/css" href="index.css" rel="stylesheet" />
 
     <title>Hello!</title>
@@ -12,25 +13,29 @@
           <input type="text" />
           <button>Add (+)</button>
         </p>
-        <p>
-            ToDo Things
-        </p>
-        <div id="toDoList">
-
-        </div>
+        <p>ToDo Things</p>
+        <div id="toDoList"></div>
       </div>
     </div>
     <script>
-        const toDos=[];
-              const button=document.querySelector("button");
-              console.log(button);
-              button.addEventListener("click", event => {
-                  const newToDo = document.querySelector("input").value;
-                  toDos.push(newToDo);
-                  const toDoList = document.getElementById("toDoList");
-                  toDoList.innerHTML = toDos.map(toDo=>`<p>${toDo}</p>`).join("");
+      const toDos = [];
+      const button = document.querySelector("button");
+      //console.log(button);
+      button.addEventListener("click", (event) => {
+        const newToDo = document.querySelector("input").value;
+        toDos.push(newToDo);
+        const toDoList = document.getElementById("toDoList");
+        toDoList.innerHTML = toDos.map((toDo, index) => 
+            `<p>${index.toString()} - <input id="chk${index.toString()}" type="checkbox"> - <span id="sp${index.toString()}" style="text-decoration:line-through;">${toDo}</span></p>`).join("");
+            
+      });
 
-              })
     </script>
+
+<!--    
+    1 - checkbox follow crossline
+    2 - delete button
+    3 - save to local storage -->
+
   </body>
 </html>

@@ -10,13 +10,13 @@
       <div class="vcenter">
         <p>
           New ToDo
-          <input autofocus type="text" />
+          <input autofocus type="text" style="margin: auto 10px;"> 
           <button id="addButton">Add (+)</button>
         </p>
         <br /><br />
         <p>
-          ToDo Things <button id="storeButton">Store It</button
-          ><button id="recallButton">Recall It</button>
+          ToDo Things <button id="storeButton" style="margin: auto 10px;">Store It</button
+          > <button id="recallButton">Recall It</button>
         </p>
         <div id="toDoList"></div>
         <button id="delButton">Del (x)</button>
@@ -34,7 +34,7 @@
         toDoList.innerHTML = toDos
           .map(
             (toDo, index) =>
-              `<p>${index.toString()} - <input id="chk${index.toString()}" type="checkbox"> - <span id="sp${index.toString()}" style="text-decoration:none;">${toDo}</span></p>`
+              `<p><input id="chk${index.toString()}" type="checkbox"> - <span id="sp${index.toString()}" style="text-decoration:none;">${toDo}</span></p>`
           )
           .join("");
         document.querySelector("input").value = "";
@@ -57,7 +57,7 @@
         toDoList.innerHTML = freshToDos
           .map(
             (toDo, index) =>
-              `<p>${index.toString()} - <input id="chk${index.toString()}" type="checkbox"> - <span id="sp${index.toString()}" style="text-decoration:none;">${toDo}</span></p>`
+              `<p><input id="chk${index.toString()}" type="checkbox"> - <span id="sp${index.toString()}" style="text-decoration:none;">${toDo}</span></p>`
           )
           .join("");
         toDos = freshToDos;
@@ -82,25 +82,31 @@
 
       const storeButton = document.getElementById("storeButton");
       storeButton.addEventListener("click", (event) => {
-        localStorage.setItem('toDos', toDos);
-        var locStor =  localStorage.getItem('toDos');
-        console.log(locStor);
-    });
-    
-    const recallButton = document.getElementById("recallButton");
-    recallButton.addEventListener("click", (event) => {
-        mToDos = localStorage.getItem('toDos');
-        smToDos=mToDos.split(',');
-        console.log(mToDos.split(','));
+        const mtemp = [];
+        toDos.forEach((elm) => {
+          abc = elm.replaceAll(",", ";;");
+          mtemp.push(abc);
+        });
+        localStorage.setItem("toDos", mtemp);
+        var locStor = localStorage.getItem("toDos");
+ //       console.log(locStor);
+      });
 
-        toDoList.innerHTML = smToDos
+      const recallButton = document.getElementById("recallButton");
+      recallButton.addEventListener("click", (event) => {
+        mToDos = localStorage.getItem("toDos");
+        mToDos = mToDos.split(",");
+        mToDos.forEach(
+          (elm, idx, arr) => (arr[idx] = elm.replaceAll(";;", ","))
+        );
+ //       console.log(mToDos);
+        toDos = mToDos;
+        toDoList.innerHTML = toDos
           .map(
             (toDo, index) =>
-              `<p>${index.toString()} - <input id="chk${index.toString()}" type="checkbox"> - <span id="sp${index.toString()}" style="text-decoration:none;">${toDo}</span></p>`
+              `<p><input id="chk${index.toString()}" type="checkbox"> - <span id="sp${index.toString()}" style="text-decoration:none;">${toDo}</span></p>`
           )
           .join("");
-
-
       });
     </script>
 

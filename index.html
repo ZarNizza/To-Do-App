@@ -13,8 +13,11 @@
           <input autofocus type="text" />
           <button id="addButton">Add (+)</button>
         </p>
-        <br/><br/>
-        <p>ToDo Things</p>
+        <br /><br />
+        <p>
+          ToDo Things <button id="storeButton">Store It</button
+          ><button id="recallButton">Recall It</button>
+        </p>
         <div id="toDoList"></div>
         <button id="delButton">Del (x)</button>
       </div>
@@ -31,30 +34,32 @@
         toDoList.innerHTML = toDos
           .map(
             (toDo, index) =>
-            `<p>${index.toString()} - <input id="chk${index.toString()}" type="checkbox"> - <span id="sp${index.toString()}" style="text-decoration:none;">${toDo}</span></p>`
-            )
-            .join("");
-            document.querySelector("input").value = "";
-            document.querySelector("input").focus();
-            document.querySelector("input").select();
+              `<p>${index.toString()} - <input id="chk${index.toString()}" type="checkbox"> - <span id="sp${index.toString()}" style="text-decoration:none;">${toDo}</span></p>`
+          )
+          .join("");
+        document.querySelector("input").value = "";
+        document.querySelector("input").focus();
+        document.querySelector("input").select();
       });
 
       const delButton = document.getElementById("delButton");
       delButton.addEventListener("click", (event) => {
- //       console.log(event);
+        //       console.log(event);
 
         var freshToDos = [];
         toDos.forEach((element, ind) => {
-          el = document.getElementById("chk"+ind);
-//          if (!el.checked) {freshToDos.push(element);console.log(ind,"-ok");} else {console.log(ind,"---del---");}
-          if (!el.checked) {freshToDos.push(element);}
+          el = document.getElementById("chk" + ind);
+          //          if (!el.checked) {freshToDos.push(element);console.log(ind,"-ok");} else {console.log(ind,"---del---");}
+          if (!el.checked) {
+            freshToDos.push(element);
+          }
         });
         toDoList.innerHTML = freshToDos
-        .map(
+          .map(
             (toDo, index) =>
-            `<p>${index.toString()} - <input id="chk${index.toString()}" type="checkbox"> - <span id="sp${index.toString()}" style="text-decoration:none;">${toDo}</span></p>`
-            )
-            .join("");
+              `<p>${index.toString()} - <input id="chk${index.toString()}" type="checkbox"> - <span id="sp${index.toString()}" style="text-decoration:none;">${toDo}</span></p>`
+          )
+          .join("");
         toDos = freshToDos;
         document.querySelector("input").focus();
         document.querySelector("input").select();
@@ -64,7 +69,7 @@
         var chk = event.target;
 
         if (chk.tagName === "INPUT" && chk.type === "checkbox") {
- //         console.log("%s %s", chk.id, chk.checked);
+          //         console.log("%s %s", chk.id, chk.checked);
           const idx = chk.id.substring(3);
           const el = document.getElementById("sp" + idx);
           if (chk.checked) {
@@ -73,6 +78,29 @@
             el.setAttribute("style", "");
           }
         }
+      });
+
+      const storeButton = document.getElementById("storeButton");
+      storeButton.addEventListener("click", (event) => {
+        localStorage.setItem('toDos', toDos);
+        var locStor =  localStorage.getItem('toDos');
+        console.log(locStor);
+    });
+    
+    const recallButton = document.getElementById("recallButton");
+    recallButton.addEventListener("click", (event) => {
+        mToDos = localStorage.getItem('toDos');
+        smToDos=mToDos.split(',');
+        console.log(mToDos.split(','));
+
+        toDoList.innerHTML = smToDos
+          .map(
+            (toDo, index) =>
+              `<p>${index.toString()} - <input id="chk${index.toString()}" type="checkbox"> - <span id="sp${index.toString()}" style="text-decoration:none;">${toDo}</span></p>`
+          )
+          .join("");
+
+
       });
     </script>
 

@@ -1,0 +1,84 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link type="text/css" href="index.css" rel="stylesheet" />
+
+    <title>Hello!</title>
+  </head>
+  <body>
+    <div class="flcc w100 h100">
+      <div class="vcenter">
+        <p>
+          New ToDo
+          <input autofocus type="text" />
+          <button id="addButton">Add (+)</button>
+        </p>
+        <br/><br/>
+        <p>ToDo Things</p>
+        <div id="toDoList"></div>
+        <button id="delButton">Del (x)</button>
+      </div>
+    </div>
+    <script>
+      var toDos = [];
+
+      const addButton = document.getElementById("addButton");
+      //console.log(button);
+      addButton.addEventListener("click", (event) => {
+        const newToDo = document.querySelector("input").value;
+        toDos.push(newToDo);
+        const toDoList = document.getElementById("toDoList");
+        toDoList.innerHTML = toDos
+          .map(
+            (toDo, index) =>
+            `<p>${index.toString()} - <input id="chk${index.toString()}" type="checkbox"> - <span id="sp${index.toString()}" style="text-decoration:none;">${toDo}</span></p>`
+            )
+            .join("");
+            document.querySelector("input").value = "";
+            document.querySelector("input").focus();
+            document.querySelector("input").select();
+      });
+
+      const delButton = document.getElementById("delButton");
+      delButton.addEventListener("click", (event) => {
+ //       console.log(event);
+
+        var freshToDos = [];
+        toDos.forEach((element, ind) => {
+          el = document.getElementById("chk"+ind);
+//          if (!el.checked) {freshToDos.push(element);console.log(ind,"-ok");} else {console.log(ind,"---del---");}
+          if (!el.checked) {freshToDos.push(element);}
+        });
+        toDoList.innerHTML = freshToDos
+        .map(
+            (toDo, index) =>
+            `<p>${index.toString()} - <input id="chk${index.toString()}" type="checkbox"> - <span id="sp${index.toString()}" style="text-decoration:none;">${toDo}</span></p>`
+            )
+            .join("");
+        toDos = freshToDos;
+        document.querySelector("input").focus();
+        document.querySelector("input").select();
+      });
+
+      document.addEventListener("change", function () {
+        var chk = event.target;
+
+        if (chk.tagName === "INPUT" && chk.type === "checkbox") {
+ //         console.log("%s %s", chk.id, chk.checked);
+          const idx = chk.id.substring(3);
+          const el = document.getElementById("sp" + idx);
+          if (chk.checked) {
+            el.setAttribute("style", "text-decoration:line-through;");
+          } else {
+            el.setAttribute("style", "");
+          }
+        }
+      });
+    </script>
+
+    <!--    
+    1 - checkbox follow crossline
+    2 - delete button
+    3 - save to local storage -->
+  </body>
+</html>

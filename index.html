@@ -1,3 +1,6 @@
+<!-- ToDo page
+    ver. on JS without REACT
+ -->
 <html>
   <head>
     <meta charset="UTF-8" />
@@ -10,21 +13,28 @@
       <div class="vcenter">
         <p>
           New ToDo
-          <input autofocus type="text" style="margin: auto 10px;"> 
+          <input autofocus type="text" style="margin: auto 10px" />
           <button id="addButton">Add (+)</button>
         </p>
         <br /><br />
         <p>
-          ToDo Things <button id="storeButton" style="margin: auto 10px;">Store It</button
-          > <button id="recallButton">Recall It</button>
+          ToDo Things
+          <button id="storeButton" style="margin: auto 10px">Store It</button>
+          <button id="recallButton">Recall It</button>
         </p>
-        <div id="toDoList"><p><input type="checkbox" disabled> - <span style="color:lightgray">bla-bla-bla bla-bla-bla</span></p></div>
+        <div id="toDoList">
+          <p>
+            <input type="checkbox" disabled /> -
+            <span style="color: lightgray">bla-bla-bla bla-bla-bla</span>
+          </p>
+        </div>
         <button id="delButton">Del (x)</button>
       </div>
     </div>
     <script>
       var toDos = [];
 
+      // ADD (+) button
       const addButton = document.getElementById("addButton");
       //console.log(button);
       addButton.addEventListener("click", (event) => {
@@ -42,6 +52,7 @@
         document.querySelector("input").select();
       });
 
+      // DEL (-) button
       const delButton = document.getElementById("delButton");
       delButton.addEventListener("click", (event) => {
         //       console.log(event);
@@ -65,9 +76,9 @@
         document.querySelector("input").select();
       });
 
+      // CHECKBOXes
       document.addEventListener("change", function () {
         var chk = event.target;
-
         if (chk.tagName === "INPUT" && chk.type === "checkbox") {
           //         console.log("%s %s", chk.id, chk.checked);
           const idx = chk.id.substring(3);
@@ -80,6 +91,7 @@
         }
       });
 
+      // STORE button
       const storeButton = document.getElementById("storeButton");
       storeButton.addEventListener("click", (event) => {
         const mtemp = [];
@@ -89,9 +101,10 @@
         });
         localStorage.setItem("toDos", mtemp);
         var locStor = localStorage.getItem("toDos");
- //       console.log(locStor);
+        //       console.log(locStor);
       });
 
+      // RECALL button
       const recallButton = document.getElementById("recallButton");
       recallButton.addEventListener("click", (event) => {
         mToDos = localStorage.getItem("toDos");
@@ -99,7 +112,7 @@
         mToDos.forEach(
           (elm, idx, arr) => (arr[idx] = elm.replaceAll(";;", ","))
         );
- //       console.log(mToDos);
+        //       console.log(mToDos);
         toDos = mToDos;
         toDoList.innerHTML = toDos
           .map(
@@ -113,6 +126,10 @@
     <!--    
     1 - checkbox follow crossline
     2 - delete button
-    3 - save to local storage -->
+    3 - save to local storage 
+todo:
+    4 - move crosslined down
+    5 - sort up/down
+-->
   </body>
 </html>

@@ -1,5 +1,5 @@
 body {
-	margin: 0;
+	margin:0;
 }
 
 .flcc {
@@ -8,15 +8,21 @@ body {
 	justify-content: center;
   align-items: center;
   align-content: center;
-  padding: 0;
+  padding:0;
 }
 
 .vcenter {
 	margin:auto;
 }
 
-.w100 {width:100vw;}
-.h100 {height:100vh;}
+.w100 {
+	width:100vw; /* Use vw as a fallback for browsers that do not support Custom Properties */
+	width: calc(var(--vw, 1vw) * 100);
+}
+.h100 {
+	height:100vh; /* Use vh as a fallback for browsers that do not support Custom Properties */
+	height: calc(var(--vh, 1vh) * 100);
+}
 
 .byelw {background: lightyellow;}
 .bgray {background: tan;}
